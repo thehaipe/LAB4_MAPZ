@@ -23,6 +23,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private string _medalDisplay = "";
     [ObservableProperty] private string _medalHint    = "";
 
+    
     public ObservableCollection<AvailableBuildingVm> AvailableBuildings  { get; } = new();
     public ObservableCollection<string>              ActiveBuildingsList  { get; } = new();
     public ObservableCollection<ResourceGoalVm>      ResourceGoals        { get; } = new();
