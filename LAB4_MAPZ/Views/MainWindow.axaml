@@ -1,0 +1,289 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LAB4_MAPZ.ViewModels"
+        x:Class="LAB4_MAPZ.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        x:CompileBindings="False"
+        Title="Economic Strategy"
+        Width="900" Height="600"
+        MinWidth="800" MinHeight="500"
+        Background="#0f0f1a">
+
+    <Window.Styles>
+        <!-- Базові стилі -->
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="FontFamily" Value="Consolas,Courier New,monospace"/>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Background"       Value="#2a2a4a"/>
+            <Setter Property="Foreground"       Value="#e0e0e0"/>
+            <Setter Property="BorderBrush"      Value="#5050a0"/>
+            <Setter Property="BorderThickness"  Value="1"/>
+            <Setter Property="Padding"          Value="12,6"/>
+            <Setter Property="FontFamily"       Value="Consolas,Courier New,monospace"/>
+            <Setter Property="Cursor"           Value="Hand"/>
+        </Style>
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#3a3a6a"/>
+        </Style>
+    </Window.Styles>
+
+    <DockPanel>
+
+        <!-- ══ Шапка ══════════════════════════════════════════════════════════ -->
+        <Border DockPanel.Dock="Top"
+                Background="#16163a"
+                Padding="20,10"
+                BorderBrush="#3030a0"
+                BorderThickness="0,0,0,1">
+            <Grid ColumnDefinitions="*,Auto,Auto">
+
+                <TextBlock Text="Economic Strategy"
+                           FontSize="20" FontWeight="Bold"
+                           Foreground="#9090ff"
+                           VerticalAlignment="Center"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal"
+                            Spacing="6" VerticalAlignment="Center"
+                            IsVisible="{Binding ShowGame}">
+                    <TextBlock Text="Time:" Foreground="#888"/>
+                    <TextBlock Text="{Binding TimeDisplay}"
+                               FontSize="18" FontWeight="Bold"
+                               Foreground="#44ff88"/>
+                </StackPanel>
+
+                <TextBlock Grid.Column="2"
+                           Text="{Binding LevelName}"
+                           Foreground="#aaaacc"
+                           VerticalAlignment="Center"
+                           Margin="20,0,0,0"
+                           IsVisible="{Binding ShowGame}"/>
+            </Grid>
+        </Border>
+
+        <!-- ══ Головний контент ════════════════════════════════════════════════ -->
+        <Grid>
+
+            <!-- ── Меню ──────────────────────────────────────────────────────── -->
+            <StackPanel IsVisible="{Binding ShowMenu}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="16">
+
+                <TextBlock Text="Economic Strategy Game"
+                           FontSize="28" FontWeight="Bold"
+                           Foreground="#9090ff"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Збери ресурси якомога швидше!"
+                           Foreground="#888" FontSize="14"
+                           HorizontalAlignment="Center"/>
+
+                <Border Height="1" Background="#333" Margin="0,8"/>
+
+                <TextBlock Text="Medals:   Gold &lt; 1:00   |   Silver &lt; 2:00   |   Copper — решта"
+                           Foreground="#aaa" FontSize="12"
+                           HorizontalAlignment="Center"/>
+
+                <Border Height="1" Background="#333" Margin="0,8"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
+                    <Button Command="{Binding StartEasyCommand}"
+                            Content="  EASY  "
+                            FontSize="16" FontWeight="Bold"
+                            Background="#1a4a2a" BorderBrush="#30a050"/>
+                    <Button Command="{Binding StartHardCommand}"
+                            Content="  HARD  "
+                            FontSize="16" FontWeight="Bold"
+                            Background="#4a1a1a" BorderBrush="#a03030"/>
+                </StackPanel>
+
+                <!-- Пояснення Easy -->
+                <Border Background="#16162a" CornerRadius="6" Padding="16" Margin="0,8,0,0">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="EASY" Foreground="#44ff88" FontWeight="Bold"/>
+                        <TextBlock Text="Старт: Mine + Forge" Foreground="#aaa" FontSize="12"/>
+                        <TextBlock Text="Ціль:  20 IronOre | 10 Iron | 3 Steel" Foreground="#aaa" FontSize="12"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Пояснення Hard -->
+                <Border Background="#16162a" CornerRadius="6" Padding="16">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="HARD" Foreground="#ff6644" FontWeight="Bold"/>
+                        <TextBlock Text="Старт: тільки Mine" Foreground="#aaa" FontSize="12"/>
+                        <TextBlock Text="Ціль:  50 IronOre | 25 Iron | 10 Steel | 15 Coal" Foreground="#aaa" FontSize="12"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- ── Ігровий екран ──────────────────────────────────────────────── -->
+            <Grid IsVisible="{Binding ShowGame}"
+                  ColumnDefinitions="260,*,220"
+                  Margin="0">
+
+                <!-- Ліва панель: Доступні будівлі -->
+                <Border Grid.Column="0"
+                        Background="#12122a"
+                        BorderBrush="#2a2a5a"
+                        BorderThickness="0,0,1,0"
+                        Padding="12">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="BUILD"
+                                   FontSize="13" FontWeight="Bold"
+                                   Foreground="#7070cc"
+                                   Margin="0,0,0,6"/>
+
+                        <ItemsControl ItemsSource="{Binding AvailableBuildings}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#1a1a36"
+                                            BorderBrush="#2a2a5a"
+                                            BorderThickness="1"
+                                            CornerRadius="4"
+                                            Padding="8"
+                                            Margin="0,0,0,6">
+                                        <StackPanel Spacing="4">
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontWeight="Bold"
+                                                       Foreground="#ccccff"/>
+                                            <TextBlock Text="{Binding Description}"
+                                                       Foreground="#7777aa"
+                                                       FontSize="11"
+                                                       TextWrapping="Wrap"/>
+                                            <Button Command="{Binding BuildCommand}"
+                                                    Content="+ Build"
+                                                    HorizontalAlignment="Left"
+                                                    FontSize="11"
+                                                    Padding="8,3"
+                                                    Margin="0,2,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <!-- Центральна панель: Активні будівлі -->
+                <Border Grid.Column="1"
+                        Background="#0f0f1e"
+                        BorderBrush="#2a2a5a"
+                        BorderThickness="0,0,1,0"
+                        Padding="14">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="YOUR BUILDINGS"
+                                   FontSize="13" FontWeight="Bold"
+                                   Foreground="#7070cc"
+                                   Margin="0,0,0,6"/>
+
+                        <ItemsControl ItemsSource="{Binding ActiveBuildingsList}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#161628"
+                                            BorderBrush="#252545"
+                                            BorderThickness="1"
+                                            CornerRadius="3"
+                                            Padding="8,5"
+                                            Margin="0,0,0,4">
+                                        <TextBlock Text="{Binding}"
+                                                   Foreground="#99aacc"
+                                                   FontSize="12"
+                                                   TextWrapping="Wrap"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <!-- Права панель: Ресурси / Цілі -->
+                <Border Grid.Column="2"
+                        Background="#12122a"
+                        Padding="12">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="GOALS"
+                                   FontSize="13" FontWeight="Bold"
+                                   Foreground="#7070cc"
+                                   Margin="0,0,0,6"/>
+
+                        <TextBlock Text="{Binding MedalHint}"
+                                   Foreground="#555577"
+                                   FontSize="10"
+                                   TextWrapping="Wrap"
+                                   Margin="0,0,0,8"/>
+
+                        <ItemsControl ItemsSource="{Binding ResourceGoals}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="0,0,0,8">
+                                        <StackPanel Spacing="3">
+                                            <TextBlock Text="{Binding Display}"
+                                                       FontSize="13"
+                                                       FontWeight="Bold"/>
+                                            <!-- Прогрес-бар -->
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <Border Grid.Column="0"
+                                                        Background="#1a1a36"
+                                                        CornerRadius="3"
+                                                        Height="6">
+                                                    <!-- Заповнення через Opacity trick -->
+                                                </Border>
+                                            </Grid>
+                                            <TextBlock Text="DONE"
+                                                       Foreground="#44ff88"
+                                                       FontSize="10"
+                                                       IsVisible="{Binding IsMet}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- ── Екран завершення гри ───────────────────────────────────────── -->
+            <StackPanel IsVisible="{Binding ShowGameOver}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="16">
+
+                <TextBlock Text="COMPLETED!"
+                           FontSize="36" FontWeight="Bold"
+                           Foreground="#9090ff"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="{Binding MedalDisplay}"
+                           FontSize="24" FontWeight="Bold"
+                           Foreground="#ffd700"
+                           HorizontalAlignment="Center"/>
+
+                <Border Background="#16163a" CornerRadius="8" Padding="24,16" Margin="0,8">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Medals:"
+                                   Foreground="#7070cc" FontWeight="Bold"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Gold    — under 1 minute"
+                                   Foreground="#ffd700"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Silver  — under 2 minutes"
+                                   Foreground="#c0c0c0"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Copper  — more than 2 min"
+                                   Foreground="#cd7f32"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Button Command="{Binding RestartCommand}"
+                        Content="  PLAY AGAIN  "
+                        FontSize="16" FontWeight="Bold"
+                        HorizontalAlignment="Center"
+                        Background="#1a3a5a" BorderBrush="#3060a0"/>
+            </StackPanel>
+
+        </Grid>
+    </DockPanel>
+</Window>
