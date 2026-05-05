@@ -10,5 +10,6 @@ public interface ILevelBuilder
     ILevelBuilder SetInitialBuildings(List<Building> buildings);
     ILevelBuilder SetAvailableBuildings(List<Building> buildings);
     ILevelBuilder SetMedalTimes(int goldSeconds, int silverSeconds);
+    ILevelBuilder SetStartingMoney(int money);
     GameLevel     Build();
 }

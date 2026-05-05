@@ -18,6 +18,12 @@ public class LevelBuilder : ILevelBuilder
         return this;
     }
 
+    public ILevelBuilder SetStartingMoney(int money)
+    {
+        _level.StartingMoney = money;
+        return this;
+    }
+
     public GameLevel Build()
     {
         var result = _level;

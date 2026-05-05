@@ -15,5 +15,6 @@ public class LevelDirector
             .SetInitialBuildings(factory.CreateInitialBuildings())
             .SetAvailableBuildings(factory.CreateAvailableBuildings())
             .SetMedalTimes(factory.GetGoldTimeSeconds(), factory.GetSilverTimeSeconds())
+            .SetStartingMoney(factory.GetStartingMoney())
             .Build();
 }

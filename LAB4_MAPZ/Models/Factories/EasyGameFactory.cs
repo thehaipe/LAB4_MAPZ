@@ -16,7 +16,6 @@ public class EasyGameFactory : IBuildingFactory
     public List<Building> CreateAvailableBuildings() => new()
     {
         new Mine(),
-        new Mine(ResourceType.Coal),
         new Forge(),
         new MetallurgicalPlant()
     };
@@ -30,4 +29,5 @@ public class EasyGameFactory : IBuildingFactory
 
     public int GetGoldTimeSeconds()   => 60;   // < 1 хвилина  → золото
     public int GetSilverTimeSeconds() => 120;  // < 2 хвилини  → срібло
+    public int GetStartingMoney()     => 120;
 }

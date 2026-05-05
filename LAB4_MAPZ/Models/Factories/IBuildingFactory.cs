@@ -11,4 +11,5 @@ public interface IBuildingFactory
     Dictionary<ResourceType, int> CreateGoals();
     int GetGoldTimeSeconds();
     int GetSilverTimeSeconds();
+    int GetStartingMoney();
 }

@@ -15,7 +15,6 @@ public class HardGameFactory : IBuildingFactory
     public List<Building> CreateAvailableBuildings() => new()
     {
         new Mine(),
-        new Mine(ResourceType.Coal, amountPerCycle: 2),
         new Forge(),
         new MetallurgicalPlant()
     };
@@ -30,4 +29,5 @@ public class HardGameFactory : IBuildingFactory
 
     public int GetGoldTimeSeconds()   => 60;
     public int GetSilverTimeSeconds() => 120;
+    public int GetStartingMoney()     => 90;
 }

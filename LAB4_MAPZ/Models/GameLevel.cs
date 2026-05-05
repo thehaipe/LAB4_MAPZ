@@ -16,4 +16,5 @@ public class GameLevel
     // Межі часу для медалей (у секундах)
     public int GoldTimeSeconds   { get; set; }
     public int SilverTimeSeconds { get; set; }
+    public int StartingMoney     { get; set; }
 }

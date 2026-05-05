@@ -88,3 +88,4 @@
 /Users/valentyn/Desktop/4 term/LAB4_MAPZ/LAB4_MAPZ/obj/Debug/net10.0/LAB4_MAPZ.pdb
 /Users/valentyn/Desktop/4 term/LAB4_MAPZ/LAB4_MAPZ/obj/Debug/net10.0/LAB4_MAPZ.genruntimeconfig.cache
 /Users/valentyn/Desktop/4 term/LAB4_MAPZ/LAB4_MAPZ/obj/Debug/net10.0/ref/LAB4_MAPZ.dll
+/Users/valentyn/Desktop/4 term/LAB4_MAPZ/LAB4_MAPZ/obj/Debug/net10.0/LAB4_MAPZ.sourcelink.json

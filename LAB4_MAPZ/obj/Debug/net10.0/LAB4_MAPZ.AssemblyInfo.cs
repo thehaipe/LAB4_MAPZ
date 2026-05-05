@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LAB4_MAPZ")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3fb4db1b4cba6fd0c119c7280a1aec01911adcd8")]
 [assembly: System.Reflection.AssemblyProductAttribute("LAB4_MAPZ")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LAB4_MAPZ")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
